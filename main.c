@@ -1,11 +1,14 @@
 #include<stdio.h>
 #include<unistd.h>
+#include <string.h>
 
 typedef struct block_header {
     size_t size;
     int free;
     struct block_header *next;
 } block_header_t;
+
+#define HEADER_SIZE sizeof(block_header_t)
 
 block_header_t *heap_start = NULL;
 
