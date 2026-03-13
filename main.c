@@ -33,14 +33,21 @@ void *my_malloc(size_t size){
     if(heap_start == NULL){
         heap_start = new_block;
     } else {
-        lock_header_t *last = heap_start;
+        block_header_t *last = heap_start;
         while(last->next != NULL){
             last = last->next;
-        }b
+        }
         last->next = new_block;
     }
 
     return (void*)(new_block + 1);
+}
+
+void my_free(void *ptr){
+    if(ptr == NULL) return;
+
+    block_header_t *block = (block_header_t*)ptr - 1;
+    block->free = 1;
 }
 
 
