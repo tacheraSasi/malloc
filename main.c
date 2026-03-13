@@ -7,13 +7,18 @@ typedef struct block_header {
     struct block_header *next;
 } block_header_t;
 
+block_header_t *heap_start = NULL;
+
 void *my_malloc(size_t size){
-    void* ptr = sbrk(size);
-    if(ptr == (void*) -1){
-        fprintf(stderr, "Memory allocation failed\n");
-        return NULL;
+    block_header_t *current = heap_start;
+    while ( current != NULL){
+        if(current->free && current->size >= size){
+            current->free = 0;
+            return (void*)(current + 1);
+        }
+        current = current->next;
     }
-    return ptr;
+
 }
 
 
