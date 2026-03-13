@@ -1,6 +1,5 @@
 #ifndef MY_MALLOC_H
 #define MY_MALLOC_H
-#include<stdio.h>
 #include<unistd.h>
 #include <string.h>
 typedef struct block_header {
