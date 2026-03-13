@@ -1,0 +1,29 @@
+# malloc -- custom memory allocator
+
+A minimal implementation of malloc(3), free(3), and
+calloc(3) using sbrk(2).
+
+Files:
+my_malloc.h -- header, struct defs and prototypes
+my_malloc.c -- allocator implementation
+main.c -- test driver
+Makefile -- build rules
+
+Building:
+$ make run
+
+How it works:
+Each block is preceded by a header that tracks its
+size, free status, and a pointer to the next block.
+my_malloc walks the linked list looking for a free
+block of sufficient size. If none is found, it extends
+the heap with sbrk. my_free marks the block as free.
+my_calloc allocates and zeroes memory.
+
+Limitations:
+
+- No block splitting or coalescing
+- sbrk is deprecated on modern systems
+- Not thread-safe
+
+Author: tacheraSasi
