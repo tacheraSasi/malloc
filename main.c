@@ -22,6 +22,25 @@ void *my_malloc(size_t size){
         current = current->next;
     }
 
+    block_header_t *new_block = sbrk(HEADER_SIZE + size);
+    if(new_block == (void*) -1){
+        return NULL;
+    }
+    new_block->size = size;
+    new_block->free = 0;
+    new_block->next = NULL;
+
+    if(heap_start == NULL){
+        heap_start = new_block;
+    } else {
+        lock_header_t *last = heap_start;
+        while(last->next != NULL){
+            last = last->next;
+        }b
+        last->next = new_block;
+    }
+
+    return (void*)(new_block + 1);
 }
 
 
